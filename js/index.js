@@ -10,7 +10,6 @@ form.addEventListener("submit", (event) => {
     event.preventDefault();
     const itemAmount = event.target.elements.quantidade.value;
     const itemName = event.target.elements.nome.value;
-    //Precisamos criar uma verificação para caso haja o item, seja somente atualizado a quantidade.
     const isHaveElement = items.find(item => item.nome === itemName);
 
     if (!isHaveElement){
@@ -39,14 +38,6 @@ function addItem (currItem) {
     list.appendChild(item);
     form.reset();
     createButton(item, currItem.id);
-
-    // Esse função tem um problema de criar o elemento e buscar os dados no localStorage, por conta disso será necessário refatorar para que os dados sejam lidos antes de criar os elementos.
-    // const currItem = {
-    //     "nome": name,
-    //     "quantidade": qtd
-    // };
-    // items.push(currItem);
-    // localStorage.setItem("items", JSON.stringify(items));
 }
 
 function updateItem (el, item) {
@@ -65,6 +56,6 @@ function createButton(item, id) {
 
 function removeItem(item, id){
     item.remove();
-    items.splice(id, 1);
+    items.splice(items.findIndex(element => element.id === id), 1);
     localStorage.setItem("items", JSON.stringify(items));
 }
